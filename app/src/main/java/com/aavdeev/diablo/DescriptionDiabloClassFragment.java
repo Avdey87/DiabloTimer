@@ -1,6 +1,7 @@
 package com.aavdeev.diablo;
 
 
+import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -15,6 +16,17 @@ public class DescriptionDiabloClassFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        if (savedInstanceState != null) {
+            nameID = savedInstanceState.getLong("nameID");
+        } else {
+            FragmentTransaction ft = getChildFragmentManager().beginTransaction();
+            WatchFragment watch = new WatchFragment();
+            ft.replace(R.id.containerWatch, watch);
+            ft.addToBackStack(null);
+            ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+            ft.commit();
+        }
 
         return inflater.inflate(R.layout.fragment_description_diablo_class, container, false);
     }
@@ -31,6 +43,12 @@ public class DescriptionDiabloClassFragment extends Fragment {
             TextView description = view.findViewById(R.id.descriptionDiabloClass);
             description.setText(diabloClass.getDescrption());
         }
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putLong("nameID",nameID);
     }
 
     public void setNameID(long nameID) {

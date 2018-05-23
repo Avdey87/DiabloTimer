@@ -2,6 +2,7 @@ package com.aavdeev.diablo;
 
 import android.app.Activity;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -24,6 +25,10 @@ public class MainActivity extends Activity implements ListDiabloClassFragment.Li
             ft.addToBackStack(null);
             ft.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
             ft.commit();
+        } else {
+            Intent intent = new Intent(MainActivity.this, DescriptionClassActivity.class);
+            intent.putExtra(DescriptionClassActivity.NAME_KEY_ID, (int) id);
+            startActivity(intent);
         }
     }
 }
